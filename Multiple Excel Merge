@@ -1,0 +1,21 @@
+#Code to merge multiple excel files into one file, the files should have same column structure and sequence,
+import pandas as pd
+import os
+
+
+excel_list = []
+os.chdir(r'#Path for base directory')
+
+data_file_folder=r'C:\Users\Rupesh.Gupta\OneDrive--------'
+
+for file in os.listdir(data_file_folder):
+    if file.endswith('.xlsx'):
+        print('Loading File {0}...'.format(file))
+        excel_list.append(pd.read_excel(os.path.join(data_file_folder,file),sheet_name='DNU-Consolidated Class Failure'))
+
+
+print(f"No of Files merged are: {len(excel_list)}")
+
+master=pd.concat(excel_list)
+master.to_excel('Final_FIle_Consolidated.xlsx', index=False)
+print("Process Complete")
